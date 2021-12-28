@@ -22,7 +22,6 @@
     ],
     "rules": {
         "no-use-before-define": "off",
-        "indent": ["error", 4, {"SwitchCase": 1}],
         "camelcase": "off",
         "import/no-unresolved": "error",
         "@typescript-eslint/naming-convention": [

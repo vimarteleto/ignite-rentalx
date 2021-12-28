@@ -1,21 +1,28 @@
+import { inject, injectable } from "tsyringe";
+
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 
 interface IRequest {
     name: string;
     description: string;
 }
-class CreateSpecificationUseCase {
-    constructor(private specficiationsRepository: ISpecificationsRepository) {}
 
-    execute({ name, description }: IRequest): void {
+@injectable()
+class CreateSpecificationUseCase {
+    constructor(
+        @inject("SpecificationsRepository")
+        private specficiationsRepository: ISpecificationsRepository
+    ) {}
+
+    async execute({ name, description }: IRequest): Promise<void> {
         const specificationExists =
-            this.specficiationsRepository.findByName(name);
+            await this.specficiationsRepository.findByName(name);
 
         if (specificationExists) {
             throw new Error("Specification already exists");
         }
 
-        this.specficiationsRepository.create({
+        await this.specficiationsRepository.create({
             name,
             description,
         });
