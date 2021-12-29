@@ -1,19 +1,20 @@
 import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
 
-export class AlterUserPrimaryKey1640732439411 implements MigrationInterface {
+export class AlterUserAddColumnAvatar1640745453362
+    implements MigrationInterface
+{
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.changeColumn(
+        await queryRunner.addColumn(
             "users",
-            "id",
             new TableColumn({
-                name: "id",
-                type: "uuid",
-                isPrimary: true,
+                name: "avatar",
+                type: "varchar",
+                isNullable: true,
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropColumn("users", "id");
+        await queryRunner.dropColumn("users", "avatar");
     }
 }
